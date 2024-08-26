@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sample XSS Playground</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>XSS Playground</h1>
+            <input type="text" id="userInput" placeholder="Enter your text here">
+            <button onclick="displayInput()">Submit</button>
+            <div id="displayArea"></div>
+        </div>
+        <script>
+            function displayInput() {
+                const input = document.getElementById('userInput').value;
+                const displayArea = document.getElementById('displayArea');
+
+                if(input.includes('1')) {
+                    var entry = 'No sneaky stuff allowed!';
+                } else {
+                    // Vulnerable to XSS
+                    var entry = '<p>' + input + '</p>';
+                }
+                displayArea.innerHTML += entry;
+
+                // Prevents XSS
+                // displayArea.textContent = input;
+
+                // Some XSS Queries
+                // <iframe src="javascript:alert(`xss`)">
+                // <img src="https://images3.memedroid.com/images/UPLOADED678/62665659a06f8.jpeg" alt="Hacker" width="500" height="600"> 
+            }
+        </script>
+    </body>
+</html>
